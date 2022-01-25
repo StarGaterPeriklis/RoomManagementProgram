@@ -214,15 +214,21 @@ public class Rmp extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
-        // TODO add your handling code here:
+    MessageFormat  
     }//GEN-LAST:event_jButtonPrintActionPerformed
 
     private void cboSetAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSetAsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboSetAsActionPerformed
 
+private JFrame frame;
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
-        // TODO add your handling code here:
+     
+        frame = new JFrame("Exit");
+        if (JOptionPane.showConfirmDialog(frame, "Confirm if you want to exit","Roomz Management Program ",
+                JOptionPane.YES_NO_OPTION)== JOptionPane.YES_NO_OPTION){
+            System.exit(0);
+        }
     }//GEN-LAST:event_jButtonExitActionPerformed
 
     /**
