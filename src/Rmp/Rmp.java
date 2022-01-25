@@ -4,6 +4,14 @@
  */
 package Rmp;
 
+import java.sql.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.text.MessageFormat;
+import java.text.*;
+import java.awt.*;
 /**
  *
  * @author reception1
@@ -65,7 +73,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 80, 30));
 
         cboSetAs.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboSetAs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboSetAs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "1 DBL", "1 DBL + 1 SGL", "1 DBL + 2 SGL", "2 SGL", "3 SGL", "4 SGL" }));
         cboSetAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboSetAsActionPerformed(evt);
@@ -98,11 +106,11 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 80, 30));
 
         cboBs.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboBs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboBs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "SHOWER", "BATHTUB" }));
         jPanel1.add(cboBs, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 130, 30));
 
         cboRoom.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "001", "002", "003", "101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "201", "202", "203", "204", "205", "206", "207", "208", "209", "210", "211", "212", "213", "214", "215", "301", "302", "303", "304", "305", "306", "307", "308", "309", "310", "311", "401", "402", "403" }));
         jPanel1.add(cboRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 110, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -111,15 +119,15 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 150, 30));
 
         cboView.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboView.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboView.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "NO", "BACK", "INTERNAL", "STREET" }));
         jPanel1.add(cboView, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 30));
 
         cboBalcony.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboBalcony.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboBalcony.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "BALCONY", "BIG BALCONY", "WINDOW ONLY" }));
         jPanel1.add(cboBalcony, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 120, 30));
 
         cboType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "TRAD", "ST", "EXE", "BAS", "QUAD", "3PL" }));
         jPanel1.add(cboType, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 130, 30));
 
         jtxName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -158,6 +166,11 @@ public class Rmp extends javax.swing.JFrame {
 
         jButtonExit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonExit.setText("EXIT");
+        jButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 80, 40));
 
         jButtonAddRoom.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -176,13 +189,10 @@ public class Rmp extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Room", "Set As", "Date", "Type", "B/S", "View", "Balcony", "Title"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -210,6 +220,10 @@ public class Rmp extends javax.swing.JFrame {
     private void cboSetAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSetAsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboSetAsActionPerformed
+
+    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonExitActionPerformed
 
     /**
      * @param args the command line arguments
