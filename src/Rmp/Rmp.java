@@ -17,12 +17,27 @@ import java.awt.*;
  * @author reception1
  */
 public class Rmp extends javax.swing.JFrame {
+    
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    DefaultTableModel model = new DefaultTableModel();
+    
 
     /**
      * Creates new form Rmp
      */
     public Rmp() {
         initComponents();
+        
+        Object col[] ={"Room","SetAs","Date","Type","B/S","View","Balcony","Name"};
+        
+        model.setColumnIdentifiers(col);
+        jTable1.setModel(model);
+        conn = Rmp.ConnectDB();
+        
+        
+        UpdateTable();
     }
 
     /**
@@ -120,6 +135,11 @@ public class Rmp extends javax.swing.JFrame {
 
         cboView.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cboView.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "NO", "BACK", "INTERNAL", "STREET" }));
+        cboView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboViewActionPerformed(evt);
+            }
+        });
         jPanel1.add(cboView, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 30));
 
         cboBalcony.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -140,6 +160,11 @@ public class Rmp extends javax.swing.JFrame {
 
         jButtonUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonUpdate.setText("UPDATE");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 130, 40));
 
         jButtonDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -153,6 +178,11 @@ public class Rmp extends javax.swing.JFrame {
 
         jButtonReset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonReset.setText("RESET");
+        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 130, 40));
 
         jButtonPrint.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -204,17 +234,118 @@ public class Rmp extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+public static Connection ConnectDB(){
+    try
+    {
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:dataform.db");
+        return conn;
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(null, e);
+        return null;
+    }
+}
 
+public void UpdateTable()
+{
+    conn = Rmp.ConnectDB();
+    
+    if (conn !=null)
+    {
+        String sql ="Select Room, SetAs, Date, Type, 'B/S', View, Balcony, Name from dataform";
+        try
+    {
+        pst = conn.prepareStatement(sql);
+        rs = pst.executeQuery();
+        Object[] columnData = new Object[8];
+        
+        while (rs.next()){
+            columnData[0] = rs.getString("Room");
+            columnData[1] = rs.getString("SetAs");
+            columnData[2] = rs.getString("Date");
+            columnData[3] = rs.getString("Type");
+            columnData[4] = rs.getString("B/S");
+            columnData[5] = rs.getString("View");
+            columnData[6] = rs.getString("Balcony");
+            columnData[7] = rs.getString("Name");
+            model.addRow(columnData);
+        }
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(null, e);
+        
+    }
+        
+        
+    }
+}
+    
+    
     private void jButtonAddRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddRoomActionPerformed
-        // TODO add your handling code here:
+     SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
+      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, 'B/S', View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
+        try
+    {
+        pst = conn.prepareStatement(sql);
+        
+           pst.setString(1, (String) cboRoom.getSelectedItem());
+           pst.setString(2, (String) cboSetAs.getSelectedItem());
+           pst.setString(3, Dformat.format(jDateChooser1.getDate()));
+           pst.setString(4, (String) cboType.getSelectedItem());
+           pst.setString(5, (String) cboBs.getSelectedItem());
+           pst.setString(6, (String) cboView.getSelectedItem());
+           pst.setString(7, (String) cboBalcony.getSelectedItem());
+           pst.setString(8, jtxName.getText());
+           
+          pst.execute();
+          JOptionPane.showMessageDialog(null,"System Updated");
+          rs.close();
+          pst.close();
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(null, e);
+        
+    }  
+        
     }//GEN-LAST:event_jButtonAddRoomActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
+           
+       DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+       if(jTable1.getSelectedRow()==-1){
+            if(jTable1.getRowCount()==0){
+                
+                JOptionPane.showMessageDialog(null, "No data to Delete!!!",
+                        "Form",JOptionPane.OK_OPTION);
+                
+            }else{
+
+                JOptionPane.showMessageDialog(null, "Select a Row to Delete!!!",
+                         "Form",JOptionPane.OK_OPTION);
+
+            }
+        }else{
+            model.removeRow(jTable1.getSelectedRow());
+        }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
-    MessageFormat  
+    
+    MessageFormat  header = new MessageFormat("Printing in progress");
+    
+            MessageFormat footer  = new MessageFormat("Page (0,number,integer)");
+            try
+            {
+            jTable1.print(JTable.PrintMode.NORMAL,header,footer);;
+            
+            }
+            catch (java.awt.print.PrinterException e){
+                    System.err.format("No Printer Found", e.getMessage());
+            }      
     }//GEN-LAST:event_jButtonPrintActionPerformed
 
     private void cboSetAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSetAsActionPerformed
@@ -225,11 +356,61 @@ private JFrame frame;
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
      
         frame = new JFrame("Exit");
-        if (JOptionPane.showConfirmDialog(frame, "Confirm if you want to exit","Roomz Management Program ",
+        if (JOptionPane.showConfirmDialog(frame, "Do you really want to exit?","Roomz Management Program ",
                 JOptionPane.YES_NO_OPTION)== JOptionPane.YES_NO_OPTION){
             System.exit(0);
         }
     }//GEN-LAST:event_jButtonExitActionPerformed
+
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        try
+        {
+            cboRoom.setSelectedIndex(0);
+            cboSetAs.setSelectedIndex(0);
+            jDateChooser1.setDate(null);
+            cboType.setSelectedIndex(0);
+            cboBs.setSelectedIndex(0);
+            cboView.setSelectedIndex(0);
+            cboBalcony.setSelectedIndex(0);
+            jtxName.setText(null);
+        }
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,e);
+            }
+    }//GEN-LAST:event_jButtonResetActionPerformed
+
+    private void cboViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboViewActionPerformed
+
+    }//GEN-LAST:event_cboViewActionPerformed
+
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+           SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
+      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, 'B/S', View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
+        try
+    {
+        pst = conn.prepareStatement(sql);
+        
+           pst.setString(1, (String) cboRoom.getSelectedItem());
+           pst.setString(2, (String) cboSetAs.getSelectedItem());
+           pst.setString(3, Dformat.format(jDateChooser1.getDate()));
+           pst.setString(4, (String) cboType.getSelectedItem());
+           pst.setString(5, (String) cboBs.getSelectedItem());
+           pst.setString(6, (String) cboView.getSelectedItem());
+           pst.setString(7, (String) cboBalcony.getSelectedItem());
+           pst.setString(8, jtxName.getText());
+           
+          pst.execute();
+          JOptionPane.showMessageDialog(null,"System Updated");
+          rs.close();
+          pst.close();
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(null, e);
+        
+    }
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     /**
      * @param args the command line arguments
