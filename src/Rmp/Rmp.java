@@ -61,11 +61,11 @@ public class Rmp extends javax.swing.JFrame {
         cboBs = new javax.swing.JComboBox<>();
         cboRoom = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         cboView = new javax.swing.JComboBox<>();
         cboBalcony = new javax.swing.JComboBox<>();
         cboType = new javax.swing.JComboBox<>();
         jtxName = new javax.swing.JTextField();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
@@ -131,7 +131,6 @@ public class Rmp extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Name:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 80, 30));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 150, 30));
 
         cboView.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cboView.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "NO", "BACK", "INTERNAL", "STREET" }));
@@ -152,6 +151,7 @@ public class Rmp extends javax.swing.JFrame {
 
         jtxName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(jtxName, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 120, 30));
+        jPanel1.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 92, 170, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 140));
 
@@ -460,7 +460,7 @@ private JFrame frame;
     private javax.swing.JButton jButtonPrint;
     private javax.swing.JButton jButtonReset;
     private javax.swing.JButton jButtonUpdate;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
