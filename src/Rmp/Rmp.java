@@ -30,7 +30,7 @@ public class Rmp extends javax.swing.JFrame {
     public Rmp() {
         initComponents();
         
-        Object col[] ={"Room","SetAs","Date","Type","B/S","View","Balcony","Name"};
+        Object col[] ={"Room","SetAs","Date","Type","BS","View","Balcony","Name"};
         
         model.setColumnIdentifiers(col);
         jTable1.setModel(model);
@@ -254,7 +254,7 @@ public void UpdateTable()
     
     if (conn !=null)
     {
-        String sql ="Select Room, SetAs, Date, Type, 'B/S', View, Balcony, Name from dataform";
+        String sql ="Select Room, SetAs, Date, Type, BS, View, Balcony, Name from dataform";
         try
     {
         pst = conn.prepareStatement(sql);
@@ -266,7 +266,7 @@ public void UpdateTable()
             columnData[1] = rs.getString("SetAs");
             columnData[2] = rs.getString("Date");
             columnData[3] = rs.getString("Type");
-            columnData[4] = rs.getString("B/S");
+            columnData[4] = rs.getString("BS");
             columnData[5] = rs.getString("View");
             columnData[6] = rs.getString("Balcony");
             columnData[7] = rs.getString("Name");
@@ -286,7 +286,7 @@ public void UpdateTable()
     
     private void jButtonAddRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddRoomActionPerformed
      SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
-      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, 'B/S', View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
+      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, BS, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
         try
     {
         pst = conn.prepareStatement(sql);
@@ -310,12 +310,22 @@ public void UpdateTable()
         JOptionPane.showMessageDialog(null, e);
         
     }  
-        
+    UpdateTable();    
     }//GEN-LAST:event_jButtonAddRoomActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-           
-       DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+       String sql="delete from dataform where Room = ?";
+        try{
+            pst=conn.prepareStatement(sql);
+            pst.setString(1, cboRoom.getSelectedItem().toString());
+            pst.execute();           
+        }catch(Exception e){
+         JOptionPane.showMessageDialog(null, e);           
+        }
+        
+        UpdateTable();    
+            
+       /*DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
        if(jTable1.getSelectedRow()==-1){
             if(jTable1.getRowCount()==0){
                 
@@ -330,7 +340,8 @@ public void UpdateTable()
             }
         }else{
             model.removeRow(jTable1.getSelectedRow());
-        }
+        }*/
+       
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
@@ -386,7 +397,27 @@ private JFrame frame;
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
            SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
-      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, 'B/S', View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
+           
+        try{
+            String value1=cboRoom.getSelectedItem().toString();
+            String value2=cboSetAs.getSelectedItem().toString();
+            String value3=jDateChooser1.getDate().toString();
+            String value4=cboType.getSelectedItem().toString();
+            String value5=cboBs.getSelectedItem().toString();
+            String value6=cboView.getSelectedItem().toString();
+            String value7=cboBalcony.getSelectedItem().toString();
+            String value8=jtxName.getText();
+            String sql ="update dataform set Room='"+value1+"',SetAs='"+value2+"',Date='"+value3+"',Type='"+value4+"',BS='"+value5+"',View='"+value6+"',Balcony='"+value7+"',Name='"+value8+"' where Room='"+value1+"' "; 
+            pst=conn.prepareStatement(sql);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Updated");
+            
+        }catch(Exception e){
+                JOptionPane.showMessageDialog(null,e);
+        }
+        UpdateTable();
+           
+      /*String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, BS, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
         try
     {
         pst = conn.prepareStatement(sql);
@@ -410,6 +441,7 @@ private JFrame frame;
         JOptionPane.showMessageDialog(null, e);
         
     }
+     UpdateTable();*/
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     /**
