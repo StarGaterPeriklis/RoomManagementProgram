@@ -59,13 +59,14 @@ public class Rmp extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cboBs = new javax.swing.JComboBox<>();
-        cboRoom = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         cboView = new javax.swing.JComboBox<>();
         cboBalcony = new javax.swing.JComboBox<>();
         cboType = new javax.swing.JComboBox<>();
         jtxName = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtxRoom = new javax.swing.JTextPane();
         jPanel2 = new javax.swing.JPanel();
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
@@ -124,10 +125,6 @@ public class Rmp extends javax.swing.JFrame {
         cboBs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "SHOWER", "BATHTUB" }));
         jPanel1.add(cboBs, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 130, 30));
 
-        cboRoom.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboRoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "001", "002", "003", "101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "201", "202", "203", "204", "205", "206", "207", "208", "209", "210", "211", "212", "213", "214", "215", "301", "302", "303", "304", "305", "306", "307", "308", "309", "310", "311", "401", "402", "403" }));
-        jPanel1.add(cboRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 110, 30));
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Name:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 80, 30));
@@ -152,6 +149,10 @@ public class Rmp extends javax.swing.JFrame {
         jtxName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(jtxName, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 120, 30));
         jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 92, 170, 30));
+
+        jScrollPane2.setViewportView(jtxRoom);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 70, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 140));
 
@@ -291,7 +292,7 @@ public void UpdateTable()
     {
         pst = conn.prepareStatement(sql);
         
-           pst.setString(1, (String) cboRoom.getSelectedItem());
+           pst.setString(1, jtxRoom.getText());
            pst.setString(2, (String) cboSetAs.getSelectedItem());
            pst.setString(3, Dformat.format(jDateChooser1.getDate()));
            pst.setString(4, (String) cboType.getSelectedItem());
@@ -310,38 +311,27 @@ public void UpdateTable()
         JOptionPane.showMessageDialog(null, e);
         
     }  
-    UpdateTable();    
+     UpdateTable();  
     }//GEN-LAST:event_jButtonAddRoomActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-       String sql="delete from dataform where Room = ?";
+	   int row = jTable1.getSelectedRow();
+	   String cell = jTable1.getModel().getValueAt(row, 0).toString();
+       String sql="delete from dataform where Room = " + cell;
         try{
             pst=conn.prepareStatement(sql);
-            pst.setString(1, cboRoom.getSelectedItem().toString());
-            pst.execute();           
+			pst.execute();  
+			JOptionPane.showMessageDialog(null, "Deleted Succesfully!!!");
+			UpdateTable();        
         }catch(Exception e){
          JOptionPane.showMessageDialog(null, e);           
-        }
-        
-        UpdateTable();    
-            
-       /*DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-       if(jTable1.getSelectedRow()==-1){
-            if(jTable1.getRowCount()==0){
-                
-                JOptionPane.showMessageDialog(null, "No data to Delete!!!",
-                        "Form",JOptionPane.OK_OPTION);
-                
-            }else{
-
-                JOptionPane.showMessageDialog(null, "Select a Row to Delete!!!",
-                         "Form",JOptionPane.OK_OPTION);
-
-            }
-        }else{
-            model.removeRow(jTable1.getSelectedRow());
-        }*/
-       
+        }finally{
+		    try {
+			      pst.close();
+				  rs.close();
+		    }catch(Exception e){
+			}
+		} 
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
@@ -376,7 +366,7 @@ private JFrame frame;
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         try
         {
-            cboRoom.setSelectedIndex(0);
+            jtxRoom.setText(null);
             cboSetAs.setSelectedIndex(0);
             jDateChooser1.setDate(null);
             cboType.setSelectedIndex(0);
@@ -396,10 +386,10 @@ private JFrame frame;
     }//GEN-LAST:event_cboViewActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-           SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
+         /* SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
            
         try{
-            String value1=cboRoom.getSelectedItem().toString();
+            String value1=jtxRoom.getText();
             String value2=cboSetAs.getSelectedItem().toString();
             String value3=jDateChooser1.getDate().toString();
             String value4=cboType.getSelectedItem().toString();
@@ -415,14 +405,14 @@ private JFrame frame;
         }catch(Exception e){
                 JOptionPane.showMessageDialog(null,e);
         }
-        UpdateTable();
-           
-      /*String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, BS, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
+        UpdateTable(); */
+           SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
+      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, BS, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
         try
     {
         pst = conn.prepareStatement(sql);
         
-           pst.setString(1, (String) cboRoom.getSelectedItem());
+           pst.setString(1, jtxRoom.getText());
            pst.setString(2, (String) cboSetAs.getSelectedItem());
            pst.setString(3, Dformat.format(jDateChooser1.getDate()));
            pst.setString(4, (String) cboType.getSelectedItem());
@@ -441,7 +431,7 @@ private JFrame frame;
         JOptionPane.showMessageDialog(null, e);
         
     }
-     UpdateTable();*/
+     UpdateTable(); 
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     /**
@@ -482,7 +472,6 @@ private JFrame frame;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboBalcony;
     private javax.swing.JComboBox<String> cboBs;
-    private javax.swing.JComboBox<String> cboRoom;
     private javax.swing.JComboBox<String> cboSetAs;
     private javax.swing.JComboBox<String> cboType;
     private javax.swing.JComboBox<String> cboView;
@@ -505,7 +494,9 @@ private JFrame frame;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jtxName;
+    private javax.swing.JTextPane jtxRoom;
     // End of variables declaration//GEN-END:variables
 }
