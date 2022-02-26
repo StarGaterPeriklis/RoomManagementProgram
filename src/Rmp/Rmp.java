@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import java.text.MessageFormat;
 import java.text.*;
 import java.awt.*;
+import net.proteanit.sql.DbUtils;
 /**
  *
  * @author reception1
@@ -249,9 +250,23 @@ public static Connection ConnectDB(){
     }
 }
 
-public void UpdateTable()
+public void UpdateTable(){
+        
+     try{
+    String sql ="select * from dataform";
+    pst = conn.prepareStatement(sql);
+    rs = pst.executeQuery();
+    jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+    }
+    catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);   
+    }    
+}   
+        
+        
+        
 {
-    conn = Rmp.ConnectDB();
+   /* conn = Rmp.ConnectDB();
     
     if (conn !=null)
     {
@@ -276,12 +291,9 @@ public void UpdateTable()
     }
     catch(Exception e)
     {
-        JOptionPane.showMessageDialog(null, e);
-        
-    }
-        
-        
-    }
+        JOptionPane.showMessageDialog(null, e);   
+    }    
+    }*/
 }
     
     
@@ -405,7 +417,7 @@ private JFrame frame;
         }catch(Exception e){
                 JOptionPane.showMessageDialog(null,e);
         }
-        UpdateTable(); */
+        UpdateTable(); 
            SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
       String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, BS, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
         try
@@ -431,7 +443,18 @@ private JFrame frame;
         JOptionPane.showMessageDialog(null, e);
         
     }
-     UpdateTable(); 
+     UpdateTable(); */
+         
+              UpdateTable();
+                
+               DefaultTableModel iModel =(DefaultTableModel)jTable1.getModel();
+            if (jTable1.getSelectedRow() == -1){
+                if (jTable1.getRowCount() == 0){
+                    JOptionPane.showMessageDialog(null,"Data Entry Update Confirmed","Data Entry System",
+                           JOptionPane.OK_OPTION);
+                }
+            }        
+         
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     /**
