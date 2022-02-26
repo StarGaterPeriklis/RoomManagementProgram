@@ -103,7 +103,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="B/S:"/>
+            <Property name="text" type="java.lang.String" value="Flex:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -171,8 +171,8 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
                 <StringItem index="0" value="-Select-"/>
-                <StringItem index="1" value="SHOWER"/>
-                <StringItem index="2" value="BATHTUB"/>
+                <StringItem index="1" value="NO"/>
+                <StringItem index="2" value="YES"/>
               </StringArray>
             </Property>
           </Properties>
@@ -234,7 +234,7 @@
               <StringArray count="4">
                 <StringItem index="0" value="-Select-"/>
                 <StringItem index="1" value="BALCONY"/>
-                <StringItem index="2" value="BIG BALCONY"/>
+                <StringItem index="2" value="TERRACE"/>
                 <StringItem index="3" value="WINDOW ONLY"/>
               </StringArray>
             </Property>
@@ -256,12 +256,12 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="7">
                 <StringItem index="0" value="-Select-"/>
-                <StringItem index="1" value="TRAD"/>
-                <StringItem index="2" value="ST"/>
-                <StringItem index="3" value="EXE"/>
-                <StringItem index="4" value="BAS"/>
+                <StringItem index="1" value="ST"/>
+                <StringItem index="2" value="EXE"/>
+                <StringItem index="3" value="BAS"/>
+                <StringItem index="4" value="3PL"/>
                 <StringItem index="5" value="QUAD"/>
-                <StringItem index="6" value="3PL"/>
+                <StringItem index="6" value="FAMILY"/>
               </StringArray>
             </Property>
           </Properties>
@@ -306,6 +306,9 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="jtxRoom">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxRoomKeyTyped"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -465,7 +468,7 @@
                     <Column editable="true" title="Set As" type="java.lang.Object"/>
                     <Column editable="true" title="Date" type="java.lang.Object"/>
                     <Column editable="true" title="Type" type="java.lang.Object"/>
-                    <Column editable="true" title="B/S" type="java.lang.Object"/>
+                    <Column editable="true" title="Flex" type="java.lang.Object"/>
                     <Column editable="true" title="View" type="java.lang.Object"/>
                     <Column editable="true" title="Balcony" type="java.lang.Object"/>
                     <Column editable="true" title="Title" type="java.lang.Object"/>

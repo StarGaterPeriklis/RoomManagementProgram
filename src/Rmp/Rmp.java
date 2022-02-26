@@ -31,7 +31,7 @@ public class Rmp extends javax.swing.JFrame {
     public Rmp() {
         initComponents();
         
-        Object col[] ={"Room","SetAs","Date","Type","BS","View","Balcony","Name"};
+        Object col[] ={"Room","SetAs","Date","Type","Flex","View","Balcony","Name"};
         
         model.setColumnIdentifiers(col);
         jTable1.setModel(model);
@@ -103,7 +103,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("B/S:");
+        jLabel3.setText("Flex:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 80, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -123,7 +123,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 80, 30));
 
         cboBs.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboBs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "SHOWER", "BATHTUB" }));
+        cboBs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "NO", "YES" }));
         jPanel1.add(cboBs, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 130, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -140,17 +140,22 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(cboView, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 30));
 
         cboBalcony.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboBalcony.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "BALCONY", "BIG BALCONY", "WINDOW ONLY" }));
+        cboBalcony.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "BALCONY", "TERRACE", "WINDOW ONLY" }));
         jPanel1.add(cboBalcony, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 120, 30));
 
         cboType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "TRAD", "ST", "EXE", "BAS", "QUAD", "3PL" }));
+        cboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "ST", "EXE", "BAS", "3PL", "QUAD", "FAMILY" }));
         jPanel1.add(cboType, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 130, 30));
 
         jtxName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel1.add(jtxName, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 120, 30));
         jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 92, 170, 30));
 
+        jtxRoom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxRoomKeyTyped(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtxRoom);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 70, -1));
@@ -224,7 +229,7 @@ public class Rmp extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Room", "Set As", "Date", "Type", "B/S", "View", "Balcony", "Title"
+                "Room", "Set As", "Date", "Type", "Flex", "View", "Balcony", "Title"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -253,7 +258,7 @@ public static Connection ConnectDB(){
 public void UpdateTable(){
         
      try{
-    String sql ="select * from dataform";
+    String sql ="select * from dataform order by Room";
     pst = conn.prepareStatement(sql);
     rs = pst.executeQuery();
     jTable1.setModel(DbUtils.resultSetToTableModel(rs));
@@ -299,7 +304,7 @@ public void UpdateTable(){
     
     private void jButtonAddRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddRoomActionPerformed
      SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
-      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, BS, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
+      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, Flex, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
         try
     {
         pst = conn.prepareStatement(sql);
@@ -456,6 +461,13 @@ private JFrame frame;
             }        
          
     }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jtxRoomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxRoomKeyTyped
+    char c = evt.getKeyChar();
+        if (!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtxRoomKeyTyped
 
     /**
      * @param args the command line arguments
