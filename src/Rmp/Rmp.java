@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.text.MessageFormat;
 import java.text.*;
-import java.awt.*;
+import java.awt.print.*;
 import net.proteanit.sql.DbUtils;
 /**
  *
@@ -144,7 +144,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(cboBalcony, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 120, 30));
 
         cboType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "ST", "EXE", "BAS", "3PL", "QUAD", "FAMILY" }));
+        cboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "ST", "EXE", "BAS", "3PL", "QUAD", "TRAD", "FAM" }));
         jPanel1.add(cboType, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 130, 30));
 
         jtxName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -268,39 +268,6 @@ public void UpdateTable(){
     }    
 }   
         
-        
-        
-{
-   /* conn = Rmp.ConnectDB();
-    
-    if (conn !=null)
-    {
-        String sql ="Select Room, SetAs, Date, Type, BS, View, Balcony, Name from dataform";
-        try
-    {
-        pst = conn.prepareStatement(sql);
-        rs = pst.executeQuery();
-        Object[] columnData = new Object[8];
-        
-        while (rs.next()){
-            columnData[0] = rs.getString("Room");
-            columnData[1] = rs.getString("SetAs");
-            columnData[2] = rs.getString("Date");
-            columnData[3] = rs.getString("Type");
-            columnData[4] = rs.getString("BS");
-            columnData[5] = rs.getString("View");
-            columnData[6] = rs.getString("Balcony");
-            columnData[7] = rs.getString("Name");
-            model.addRow(columnData);
-        }
-    }
-    catch(Exception e)
-    {
-        JOptionPane.showMessageDialog(null, e);   
-    }    
-    }*/
-}
-    
     
     private void jButtonAddRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddRoomActionPerformed
      SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
@@ -334,7 +301,7 @@ public void UpdateTable(){
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
 	   int row = jTable1.getSelectedRow();
 	   String cell = jTable1.getModel().getValueAt(row, 0).toString();
-       String sql="delete from dataform where Room = " + cell;
+       String sql="delete from dataform where Room ='" + cell +"'";
         try{
             pst=conn.prepareStatement(sql);
 			pst.execute();  
@@ -353,7 +320,7 @@ public void UpdateTable(){
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
     
-    MessageFormat  header = new MessageFormat("Printing in progress");
+    MessageFormat  header = new MessageFormat("Room Status");
     
             MessageFormat footer  = new MessageFormat("Page (0,number,integer)");
             try
@@ -403,53 +370,7 @@ private JFrame frame;
     }//GEN-LAST:event_cboViewActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-         /* SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
-           
-        try{
-            String value1=jtxRoom.getText();
-            String value2=cboSetAs.getSelectedItem().toString();
-            String value3=jDateChooser1.getDate().toString();
-            String value4=cboType.getSelectedItem().toString();
-            String value5=cboBs.getSelectedItem().toString();
-            String value6=cboView.getSelectedItem().toString();
-            String value7=cboBalcony.getSelectedItem().toString();
-            String value8=jtxName.getText();
-            String sql ="update dataform set Room='"+value1+"',SetAs='"+value2+"',Date='"+value3+"',Type='"+value4+"',BS='"+value5+"',View='"+value6+"',Balcony='"+value7+"',Name='"+value8+"' where Room='"+value1+"' "; 
-            pst=conn.prepareStatement(sql);
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Updated");
-            
-        }catch(Exception e){
-                JOptionPane.showMessageDialog(null,e);
-        }
-        UpdateTable(); 
-           SimpleDateFormat Dformat = new SimpleDateFormat("dd-MM-yyyy"); 
-      String sql ="INSERT INTO dataform( Room, SetAs, Date, Type, BS, View, Balcony, Name)VALUES(?,?,?,?,?,?,?,?)";
-        try
-    {
-        pst = conn.prepareStatement(sql);
-        
-           pst.setString(1, jtxRoom.getText());
-           pst.setString(2, (String) cboSetAs.getSelectedItem());
-           pst.setString(3, Dformat.format(jDateChooser1.getDate()));
-           pst.setString(4, (String) cboType.getSelectedItem());
-           pst.setString(5, (String) cboBs.getSelectedItem());
-           pst.setString(6, (String) cboView.getSelectedItem());
-           pst.setString(7, (String) cboBalcony.getSelectedItem());
-           pst.setString(8, jtxName.getText());
-           
-          pst.execute();
-          JOptionPane.showMessageDialog(null,"System Updated");
-          rs.close();
-          pst.close();
-    }
-    catch(Exception e)
-    {
-        JOptionPane.showMessageDialog(null, e);
-        
-    }
-     UpdateTable(); */
-         
+      
               UpdateTable();
                 
                DefaultTableModel iModel =(DefaultTableModel)jTable1.getModel();
