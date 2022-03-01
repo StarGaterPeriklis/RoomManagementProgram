@@ -83,6 +83,7 @@ public class Rmp extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel1.setForeground(new java.awt.Color(173, 95, 196));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -90,7 +91,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 80, 30));
 
         cboSetAs.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboSetAs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "1 DBL", "1 DBL + 1 SGL", "1 DBL + 2 SGL", "2 SGL", "3 SGL", "4 SGL" }));
+        cboSetAs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "1 DB", "1 DB & 1 SG", "1 DB & 2 SG", "2 SG", "3 SG", "4 SG" }));
         cboSetAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboSetAsActionPerformed(evt);
@@ -140,7 +141,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(cboView, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 30));
 
         cboBalcony.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cboBalcony.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "BALCONY", "TERRACE", "WINDOW ONLY" }));
+        cboBalcony.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select-", "BALCONY", "TERRACE", "WINDOW" }));
         jPanel1.add(cboBalcony, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 120, 30));
 
         cboType.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -229,9 +230,10 @@ public class Rmp extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Room", "Set As", "Date", "Type", "Flex", "View", "Balcony", "Title"
+                "Room", "Type", "Set As", "Date", "Flex", "View", "Balcony", "Title"
             }
         ));
+        jTable1.setShowGrid(false);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 180));
@@ -292,7 +294,7 @@ public void UpdateTable(){
     }
     catch(Exception e)
     {
-        JOptionPane.showMessageDialog(null, e);
+        JOptionPane.showMessageDialog(null, "Date Needs To Be Inserted");
         
     }  
      UpdateTable();  
@@ -319,13 +321,13 @@ public void UpdateTable(){
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
+        
+    MessageFormat  header = new MessageFormat("Room Status List");
     
-    MessageFormat  header = new MessageFormat("Room Status");
-    
-            MessageFormat footer  = new MessageFormat("Page (0,number,integer)");
+            MessageFormat footer  = new MessageFormat("Created by ThreeCucumbers");
             try
             {
-            jTable1.print(JTable.PrintMode.NORMAL,header,footer);;
+            jTable1.print(JTable.PrintMode.FIT_WIDTH,header,footer);;
             
             }
             catch (java.awt.print.PrinterException e){
