@@ -82,11 +82,13 @@ public class Rmp extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(44, 6, 31));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel1.setForeground(new java.awt.Color(173, 95, 196));
+        jPanel1.setForeground(new java.awt.Color(44, 6, 31));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Type:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 80, 30));
 
@@ -100,26 +102,32 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(cboSetAs, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 170, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Date:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Flex:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 80, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("View:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 80, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Balcony:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 80, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Set As:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 80, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Room:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 80, 30));
 
@@ -128,6 +136,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(cboBs, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 130, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Name:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 80, 30));
 
@@ -152,6 +161,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel1.add(jtxName, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 120, 30));
         jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 92, 170, 30));
 
+        jtxRoom.setForeground(new java.awt.Color(44, 6, 31));
         jtxRoom.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtxRoomKeyTyped(evt);
@@ -163,10 +173,13 @@ public class Rmp extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 140));
 
+        jPanel2.setBackground(new java.awt.Color(44, 6, 31));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonUpdate.setBackground(new java.awt.Color(44, 6, 31));
         jButtonUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonUpdate.setForeground(new java.awt.Color(255, 255, 255));
         jButtonUpdate.setText("UPDATE");
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,7 +188,9 @@ public class Rmp extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 130, 40));
 
+        jButtonDelete.setBackground(new java.awt.Color(44, 6, 31));
         jButtonDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonDelete.setForeground(new java.awt.Color(255, 255, 255));
         jButtonDelete.setText("DELETE");
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +199,9 @@ public class Rmp extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 130, 40));
 
+        jButtonReset.setBackground(new java.awt.Color(44, 6, 31));
         jButtonReset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonReset.setForeground(new java.awt.Color(255, 255, 255));
         jButtonReset.setText("RESET");
         jButtonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,7 +210,9 @@ public class Rmp extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 130, 40));
 
+        jButtonPrint.setBackground(new java.awt.Color(44, 6, 31));
         jButtonPrint.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonPrint.setForeground(new java.awt.Color(255, 255, 255));
         jButtonPrint.setText("PRINT");
         jButtonPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +221,9 @@ public class Rmp extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 130, 40));
 
+        jButtonExit.setBackground(new java.awt.Color(44, 6, 31));
         jButtonExit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonExit.setForeground(new java.awt.Color(255, 255, 255));
         jButtonExit.setText("EXIT");
         jButtonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +232,9 @@ public class Rmp extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 80, 40));
 
+        jButtonAddRoom.setBackground(new java.awt.Color(44, 6, 31));
         jButtonAddRoom.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonAddRoom.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAddRoom.setText("ADD ROOM");
         jButtonAddRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,7 +333,7 @@ public void UpdateTable(){
 			JOptionPane.showMessageDialog(null, "Deleted Succesfully!!!");
 			UpdateTable();        
         }catch(Exception e){
-         JOptionPane.showMessageDialog(null, e);           
+         JOptionPane.showMessageDialog(null, "No Data Found!");           
         }finally{
 		    try {
 			      pst.close();
@@ -343,7 +366,7 @@ private JFrame frame;
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
      
         frame = new JFrame("Exit");
-        if (JOptionPane.showConfirmDialog(frame, "Do you really want to exit?","Roomz Management Program ",
+        if (JOptionPane.showConfirmDialog(frame, "Do you really want to exit?","Room Management Program",
                 JOptionPane.YES_NO_OPTION)== JOptionPane.YES_NO_OPTION){
             System.exit(0);
         }
@@ -378,7 +401,7 @@ private JFrame frame;
                DefaultTableModel iModel =(DefaultTableModel)jTable1.getModel();
             if (jTable1.getSelectedRow() == -1){
                 if (jTable1.getRowCount() == 0){
-                    JOptionPane.showMessageDialog(null,"Data Entry Update Confirmed","Data Entry System",
+                    JOptionPane.showMessageDialog(null,"No Data For Update!","Room Management Program",
                            JOptionPane.OK_OPTION);
                 }
             }        
