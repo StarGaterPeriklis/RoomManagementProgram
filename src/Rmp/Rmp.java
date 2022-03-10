@@ -8,6 +8,7 @@ import java.sql.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import java.text.MessageFormat;
 import java.text.*;
@@ -303,7 +304,7 @@ public void UpdateTable(){
         
            pst.setString(1, jtxRoom.getText());
            pst.setString(2, (String) cboSetAs.getSelectedItem());
-           pst.setString(3, Dformat.format(jDateChooser1.getDate()));
+           pst.setString(3, ((JTextField)jDateChooser1.getDateEditor().getUiComponent()).getText());
            pst.setString(4, (String) cboType.getSelectedItem());
            pst.setString(5, (String) cboBs.getSelectedItem());
            pst.setString(6, (String) cboView.getSelectedItem());
@@ -317,7 +318,7 @@ public void UpdateTable(){
     }
     catch(Exception e)
     {
-        JOptionPane.showMessageDialog(null, "Date Needs To Be Inserted");
+        JOptionPane.showMessageDialog(null, e);
         
     }  
      UpdateTable();  
