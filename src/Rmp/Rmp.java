@@ -178,7 +178,7 @@ public class Rmp extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonUpdate.setBackground(new java.awt.Color(44, 6, 31));
+        jButtonUpdate.setBackground(new java.awt.Color(255, 0, 0));
         jButtonUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonUpdate.setForeground(new java.awt.Color(255, 255, 255));
         jButtonUpdate.setText("UPDATE");
@@ -348,7 +348,7 @@ public void UpdateTable(){
         
     MessageFormat  header = new MessageFormat("Room Status List");
     
-            MessageFormat footer  = new MessageFormat("Created by ThreeCucumbers");
+            MessageFormat footer  = new MessageFormat("Created by StarGaterPeriklis");
             try
             {
             jTable1.print(JTable.PrintMode.FIT_WIDTH,header,footer);;
